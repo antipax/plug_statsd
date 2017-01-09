@@ -106,6 +106,9 @@ defmodule Plug.Statsd do
         Plug.Statsd.ExStatsdBackend
       :statsderl ->
         Plug.Statsd.StatsderlBackend
+      backend when is_atom backend ->
+        true = Code.ensure_loaded? backend
+        backend
       true ->
         raise ArgumentError, message: "Backend #{@backend} not found"
     end
